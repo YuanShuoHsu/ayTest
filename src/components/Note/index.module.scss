@@ -1,0 +1,13 @@
+.note {
+  &__paragraph {
+    text-align: left;
+  }
+
+  &__list {
+    text-align: left;
+    list-style: none;
+
+    &Item {
+    }
+  }
+}
