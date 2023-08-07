@@ -1,0 +1,38 @@
+.home {
+  padding: 20px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__section {
+    .home__subtitle {
+      text-align: left;
+    }
+
+    .home__paragraph {
+      text-align: left;
+    }
+
+    .home__list {
+      text-align: left;
+
+      &Item {
+      }
+    }
+  }
+
+  &__note {
+    .home__paragraph {
+      text-align: left;
+    }
+
+    .home__list {
+      text-align: left;
+      list-style: none;
+
+      &Item {
+      }
+    }
+  }
+}
