@@ -1,6 +1,6 @@
 import NumberFormatter from "../NumberFormatter";
 import NumberRange from "../NumberRange";
-import PriceSetting from "../PriceSetting"
+import PriceSetting from "../PriceSetting";
 
 import priceSetting from "./../../images/priceSetting.png";
 
@@ -26,7 +26,9 @@ export default function TestConent() {
             output: -7,855,948.9527
           </p>
         </li>
-        <NumberFormatter />
+        <div className={styles.testContent__answer}>
+          <NumberFormatter />
+        </div>
         <li className={styles.testContent__listItem}>
           <p className={styles.testContent__paragraph}>
             請根據輸入的數字區間找出數字 0 到 20 間重疊與未包含的數字區間
@@ -38,7 +40,9 @@ export default function TestConent() {
             {`output: { overlap: [[6, 8], [17]], notInclude: [[0, 4], [12, 13]] }`}
           </p>
         </li>
-        <NumberRange ranges={inputRanges} />
+        <div className={styles.testContent__answer}>
+          <NumberRange ranges={inputRanges} />
+        </div>
         <li className={styles.testContent__listItem}>
           <p className={styles.testContent__paragraph}>
             根據上兩題的內容，完成下列不同年齡價格 UI
@@ -98,7 +102,9 @@ export default function TestConent() {
               alt="價格設定"
             />
           </div>
-          <PriceSetting/>
+          <div className={styles.testContent__answer}>
+            <PriceSetting />
+          </div>
         </li>
       </ul>
     </section>

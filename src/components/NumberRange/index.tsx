@@ -1,4 +1,4 @@
-import React from 'react';
+import styles from "./index.module.scss";
 
 interface Props {
   ranges: number[][];
@@ -48,13 +48,9 @@ const NumberRange: React.FC<Props> = ({ ranges }) => {
   const result = findOverlapAndNotInclude(ranges);
 
   return (
-    <div>
-      <div>
-        Overlapping Ranges: {JSON.stringify(result.overlap)}
-      </div>
-      <div>
-        Not Included Ranges: {JSON.stringify(result.notInclude)}
-      </div>
+    <div className={styles.numberRange}>
+      <div>Overlapping Ranges: {JSON.stringify(result.overlap)}</div>
+      <div>Not Included Ranges: {JSON.stringify(result.notInclude)}</div>
     </div>
   );
 };
