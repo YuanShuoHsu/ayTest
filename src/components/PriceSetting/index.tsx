@@ -9,9 +9,9 @@ import styles from "./index.module.scss";
 export default function PriceSetting() {
   const [sections, setSections] = useState<number[]>([1]);
 
-  const handleHeaderRemoveClick = (index: number) => {
+  const handleHeaderRemoveClick = (sectionIndex: number) => {
     setSections((prevSections) =>
-      prevSections.filter((sectionIndex) => sectionIndex !== index)
+      prevSections.filter((index) => index !== sectionIndex)
     );
   };
 
@@ -25,7 +25,8 @@ export default function PriceSetting() {
       {sections.map((sectionIndex, index) => (
         <Fragment key={sectionIndex}>
           <PriceSettingHeader
-            index={sectionIndex}
+            index={index + 1}
+            sectionIndex={sectionIndex}
             onRemoveClick={handleHeaderRemoveClick}
           />
           <PriceSettingMain />
