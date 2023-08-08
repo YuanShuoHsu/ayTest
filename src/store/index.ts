@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-// import arrangementReducer from "./slice/arrangement";
+import templateReducer from "./slice/template";
 
 export const store = configureStore({
   reducer: {
-    // arrangement: arrangementReducer,
+    template: templateReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
