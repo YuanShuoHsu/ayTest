@@ -1,92 +1,30 @@
+$breakpoints: (
+  // xs: 0,
+  sm: 576px,
+  // md: 768px,
+  lg: 992px,
+  // xl: 1200px,
+  // xxl: 1400px,
+);
+
+@mixin respond-to($breakpoint) {
+  @media (max-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
 .priceSetting {
   padding: 10px;
   border: 1px dashed #b6b6b6;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-  &__header {
-    display: flex;
-    justify-content: space-between;
-
-    .title {
-    }
-
-    .removeButton {
-      background: transparent;
-      border: none;
-      border-radius: 3px;
-      outline: none;
-      color: #f4511e;
-      cursor: pointer;
-      transition: 0.2s opacity;
-
-      &:hover {
-        opacity: 0.8;
-      }
-    }
+  @include respond-to(lg) {
+    font-size: 14px;
   }
-  &__main {
-    display: flex;
 
-    .ageRange {
-      &Text {
-        color: #b6b6b6;
-      }
-
-      .age {
-        &Value {
-          border: 1px solid #f4511e;
-        }
-        &Separator {
-          background-color: #f5f5f5;
-          border: 1px solid #b6b6b6;
-          color: #b6b6b6;
-        }
-      }
-
-      .errorMessage {
-        background-color: #fbe9e7;
-        color: #f4511e;
-      }
-    }
-
-    .accommodationCost {
-      &Text {
-        color: #b6b6b6;
-      }
-
-      .cost {
-        &Label {
-          background-color: #f5f5f5;
-          border: 1px solid #b6b6b6;
-          color: #b6b6b6;
-        }
-        &Value {
-          border: 1px solid #f4511e;
-        }
-      }
-
-      .errorMessage {
-        background-color: #fbe9e7;
-        color: #f4511e;
-      }
-
-      .additionalMessage {
-        color: #b6b6b6;
-      }
-    }
-  }
-  &__footer {
-    .addButton {
-      background-color: transparent;
-      border: none;
-      border-radius: 3px;
-      outline: none;
-      color: #20aea1;
-      cursor: pointer;
-      transition: 0.2s opacity;
-
-      &:hover {
-        opacity: 0.8;
-      }
-    }
+  @include respond-to(sm) {
+    font-size: 12px;
   }
 }

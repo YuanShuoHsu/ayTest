@@ -12,9 +12,7 @@ export default function NumberFormatter() {
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     let inputValue = e.target.value;
-
     inputValue = inputValue.replace(/[^\d.-]/g, "");
-
     setInputNumber(inputValue);
   }
 

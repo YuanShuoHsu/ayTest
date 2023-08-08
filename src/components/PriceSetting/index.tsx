@@ -1,35 +1,38 @@
+import { useState, Fragment } from "react";
+import PriceSettingHeader from "./PriceSettingHeader";
+import PriceSettingMain from "./PriceSettingMain";
+import PriceSettingDivider from "./PriceSettingDivider";
+import PriceSettingFooter from "./PriceSettingFooter";
+
 import styles from "./index.module.scss";
 
 export default function PriceSetting() {
+  const [sections, setSections] = useState<number[]>([1]);
+
+  const handleHeaderRemoveClick = (index: number) => {
+    setSections((prevSections) =>
+      prevSections.filter((sectionIndex) => sectionIndex !== index)
+    );
+  };
+
+  const handleFooterAddClick = () => {
+    const maxIndex = Math.max(...sections);
+    setSections((prevSections) => [...prevSections, maxIndex + 1]);
+  };
+
   return (
     <div className={styles.priceSetting}>
-      <div className={styles.priceSetting__header}>
-        <h4 className={styles.title}>價格設定</h4>
-        <button className={styles.removeButton}>Ｘ移除</button>
-      </div>
-      <div className={styles.priceSetting__main}>
-        <div className={styles.ageRange}>
-          <p className={styles.ageRangeText}>年齡</p>
-          <div className={styles.age}>
-            <input type="text" className={styles.ageValue} />
-            <span className={styles.ageSeparator}>～</span>
-            <input type="text" className={styles.ageValue} />
-          </div>
-          <p className={styles.errorMessage}>年齡區間不可重疊</p>
-        </div>
-        <div className={styles.accommodationCost}>
-          <p className={styles.accommodationCostText}>入住費用（每人每晚）</p>
-          <div className={styles.cost}>
-            <label className={styles.costLabel} htmlFor="">TWD</label>
-            <input className={styles.costValue} type="text" />
-          </div>
-          <p className={styles.errorMessage}>不可以為空白</p>
-          <p className={styles.additionalMessage}>輸入 0 表示免費</p>
-        </div>
-      </div>
-      <div className={styles.priceSetting__footer}>
-        <button className={styles.addButton}>＋新增價格設定</button>
-      </div>
+      {sections.map((sectionIndex, index) => (
+        <Fragment key={sectionIndex}>
+          <PriceSettingHeader
+            index={sectionIndex}
+            onRemoveClick={handleHeaderRemoveClick}
+          />
+          <PriceSettingMain />
+          {index < sections.length - 1 && <PriceSettingDivider />}
+        </Fragment>
+      ))}
+      <PriceSettingFooter onAddClick={handleFooterAddClick} />
     </div>
   );
 }

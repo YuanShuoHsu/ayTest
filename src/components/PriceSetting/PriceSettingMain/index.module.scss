@@ -1,0 +1,144 @@
+$breakpoints: (
+  // xs: 0,
+  sm: 576px,
+  // md: 768px,
+  // lg: 992px,
+  // xl: 1200px,
+  // xxl: 1400px,
+);
+
+@mixin respond-to($breakpoint) {
+  @media (max-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+.priceSettingMain {
+  display: flex;
+  gap: 10px;
+
+  @include respond-to(sm) {
+    flex-direction: column;
+  }
+
+  .ageRange {
+    width: 50%;
+
+    @include respond-to(sm) {
+      width: 100%;
+    }
+
+    &Text {
+      margin: 0;
+      color: #b6b6b6;
+      line-height: 30px;
+    }
+
+    .age {
+      display: flex;
+
+      &Value {
+        padding: 0 5px;
+        width: 100%;
+        height: 30px;
+        border: 1px solid #f4511e;
+        outline: none;
+        color: #666666;
+
+        &::placeholder {
+          color: #b6b6b6;
+        }
+
+        &:first-child {
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+        }
+
+        &:last-child {
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
+        }
+      }
+
+      &Separator {
+        padding: 0 5px;
+        background-color: #f5f5f5;
+        border-top: 1px solid #b6b6b6;
+        border-bottom: 1px solid #b6b6b6;
+        color: #666666;
+        line-height: 30px;
+      }
+    }
+
+    .errorMessage {
+      margin: 0;
+      padding: 0 5px;
+      background-color: #fbe9e7;
+      border-radius: 3px;
+      color: #f4511e;
+      line-height: 30px;
+    }
+  }
+
+  .accommodationCost {
+    width: 50%;
+
+    @include respond-to(sm) {
+      width: 100%;
+    }
+
+    &Text {
+      margin: 0;
+      color: #b6b6b6;
+      line-height: 30px;
+    }
+
+    .cost {
+      display: flex;
+
+      &Label {
+        padding: 0 5px;
+        background-color: #f5f5f5;
+        border-top: 1px solid #b6b6b6;
+        border-bottom: 1px solid #b6b6b6;
+        border-left: 1px solid #b6b6b6;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        color: #666666;
+        line-height: 30px;
+        letter-spacing: -1px;
+      }
+
+      &Value {
+        padding: 0 5px;
+        width: 100%;
+        height: 30px;
+        border: 1px solid #f4511e;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        outline: none;
+        color: #666666;
+
+        &::placeholder {
+          color: #b6b6b6;
+        }
+      }
+    }
+
+    .errorMessage {
+      margin: 0;
+      padding: 0 5px;
+      background-color: #fbe9e7;
+      border-radius: 3px;
+      color: #f4511e;
+      line-height: 30px;
+    }
+
+    .additionalMessage {
+      margin: 0;
+      text-align: right;
+      color: #b6b6b6;
+      line-height: 30px;
+    }
+  }
+}

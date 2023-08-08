@@ -1,0 +1,17 @@
+.priceSettingFooter {
+  &__addButton {
+    padding: 0 5px;
+    background-color: transparent;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    color: #20aea1;
+    line-height: 30px;
+    cursor: pointer;
+    transition: 0.2s opacity;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
