@@ -21,12 +21,12 @@ export default function NumberFormatter() {
 
   return (
     <div className={styles.numberFormatter}>
-      <div className={styles.input}>
-        <label className={styles.inputLabel} htmlFor="inputNumber">
+      <div className={styles.numberFormatter__input}>
+        <label className={styles.numberFormatter__inputLabel} htmlFor="inputNumber">
           input:
         </label>
         <input
-          className={styles.inputValue}
+          className={styles.numberFormatter__inputValue}
           type="text"
           id="inputNumber"
           value={inputNumber}
@@ -34,9 +34,9 @@ export default function NumberFormatter() {
           placeholder="請輸入數字"
         />
       </div>
-      <p className={styles.output}>
-        <span className={styles.outputLabel}>output:</span>
-        <span className={styles.outputValue}>{formattedNumber}</span>
+      <p className={styles.numberFormatter__output}>
+        <span className={styles.numberFormatter__outputLabel}>output:</span>
+        <span className={styles.numberFormatter__outputValue}>{formattedNumber}</span>
       </p>
     </div>
   );
