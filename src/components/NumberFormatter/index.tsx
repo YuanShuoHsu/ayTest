@@ -10,10 +10,11 @@ export default function NumberFormatter() {
     return parts.join(".");
   }
 
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    let inputValue = e.target.value;
-    inputValue = inputValue.replace(/[^\d.-]/g, "");
-    setInputNumber(inputValue);
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    
+    const inputValue = event.target.value;
+    const validInput = inputValue.replace(/[^\d.-]/g, "");
+    setInputNumber(validInput);
   }
 
   const formattedNumber: string = ThousandSeparator(inputNumber);
@@ -30,7 +31,7 @@ export default function NumberFormatter() {
           id="inputNumber"
           value={inputNumber}
           onChange={handleInputChange}
-          placeholder="請輸入"
+          placeholder="請輸入數字"
         />
       </div>
       <p className={styles.output}>

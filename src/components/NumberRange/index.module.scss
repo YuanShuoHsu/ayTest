@@ -2,4 +2,43 @@
   padding: 10px;
   background-color: #ffffff;
   border: 1px dashed #b6b6b6;
+
+  .input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    &Label {
+      line-height: 30px;
+      cursor: pointer;
+    }
+
+    &Value {
+      padding: 0 5px;
+      width: 100%;
+      max-width: 200px;
+      height: 30px;
+      border: 1px solid #f4511e;
+      border-radius: 3px;
+      outline: none;
+    }
+  }
+
+  .output {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    &Label {
+      line-height: 30px;
+    }
+
+    &Value {
+      line-height: 30px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
 }

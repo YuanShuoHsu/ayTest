@@ -7,8 +7,6 @@ import priceSetting from "./../../images/priceSetting.png";
 import styles from "./index.module.scss";
 
 export default function TestConent() {
-  const inputRanges: number[][] = [[6, 11], [5, 8], [17, 20], [7], [14, 17]];
-
   return (
     <section className={styles.testContent}>
       <h2 className={styles.testContent__subtitle}>測驗內容</h2>
@@ -41,7 +39,7 @@ export default function TestConent() {
           </p>
         </li>
         <div className={styles.testContent__answer}>
-          <NumberRange ranges={inputRanges} />
+          <NumberRange />
         </div>
         <li className={styles.testContent__listItem}>
           <p className={styles.testContent__paragraph}>
