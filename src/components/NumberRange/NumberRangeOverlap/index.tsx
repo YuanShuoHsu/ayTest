@@ -9,11 +9,11 @@ export default function NumberRangeOverlap({
   intervals,
 }: NumberRangeOverlapProps) {
   const findMergeIntervals = (intervals: string[][]): string[][] => {
-    const sortedIntervals = [...intervals].sort(
-      (a, b) => Number(a[0]) - Number(b[0])
-    );
+    if (intervals.length === 0) {
+      return [];
+    }
 
-    const mergedIntervals: string[][] = [sortedIntervals[0]];
+    const mergedIntervals: string[][] = [intervals[0]];
 
     for (let i = 1; i < intervals.length; i++) {
       const currentInterval = intervals[i];
@@ -59,18 +59,20 @@ export default function NumberRangeOverlap({
   const overlappingIntervals = findOverlappingIntervals(intervals);
   const mergedIntervals = findMergeIntervals(overlappingIntervals);
 
-  const overlappingIndices = [];
+  // console.log(mergedIntervals)
 
-  for (const merged of mergedIntervals) {
-    for (const input of intervals) {
-      const [mergedStart, mergedEnd] = merged;
-      const [inputStart, inputEnd] = input;
+  // const overlappingIndices = [];
 
-      if (mergedStart <= inputEnd && mergedEnd >= inputStart) {
-        overlappingIndices.push(intervals.indexOf(input));
-      }
-    }
-  }
+  // for (const merged of mergedIntervals) {
+  //   for (const input of intervals) {
+  //     const [mergedStart, mergedEnd] = merged;
+  //     const [inputStart, inputEnd] = input;
+
+  //     if (mergedStart <= inputEnd && mergedEnd >= inputStart) {
+  //       overlappingIndices.push(intervals.indexOf(input));
+  //     }
+  //   }
+  // }
 
   return (
     <span className={styles.numberRangeOverlap}>

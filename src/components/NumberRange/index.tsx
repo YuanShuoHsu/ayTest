@@ -32,6 +32,7 @@ export default function NumberRange() {
       } else if (interval[1] === "") {
         return [interval[0], interval[0]];
       }
+
       return interval;
     });
   };
