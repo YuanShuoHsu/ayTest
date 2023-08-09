@@ -9,7 +9,7 @@ export default function NumberRangeOverlap({
   intervals,
 }: NumberRangeOverlapProps) {
   const findMergeIntervals = (intervals: number[][]): number[][] => {
-    const sortedIntervals = intervals.slice().sort((a, b) => a[0] - b[0]);
+    const sortedIntervals = [...intervals].sort((a, b) => a[0] - b[0]);
 
     const mergedIntervals = [sortedIntervals[0]];
 
@@ -31,7 +31,7 @@ export default function NumberRangeOverlap({
   };
 
   const findOverlappingIntervals = (intervals: number[][]): number[][] => {
-    const sortedIntervals = intervals.slice().sort((a, b) => a[0] - b[0]);
+    const sortedIntervals = [...intervals].sort((a, b) => a[0] - b[0]);
 
     const overlappingIntervals = [];
 
