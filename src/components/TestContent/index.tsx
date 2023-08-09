@@ -2,7 +2,7 @@ import NumberFormatter from "../NumberFormatter";
 import NumberRange from "../NumberRange";
 import PriceSetting from "../PriceSetting";
 
-import priceSetting from "./../../images/priceSetting.png";
+import priceSetting from "./../../images/priceSetting.jpg";
 
 import styles from "./index.module.scss";
 

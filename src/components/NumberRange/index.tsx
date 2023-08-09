@@ -19,21 +19,26 @@ export default function NumberRange() {
 
   const isValidRange = (range: number[]): boolean => {
     const [start, end] = range;
-    return (
-      start !== undefined &&
-      range.length !== 0 &&
-      ((end === undefined && 0 <= start && start <= 20) ||
-        (end !== undefined && 0 <= start && end <= 20 && start < end))
-    );
+
+    return 0 <= start && end <= 20 && start <= end;
   };
 
   const parseInput = (input: string): number[][] => {
     try {
       const parsedIntervals = JSON.parse(input) as number[][];
-      if (parsedIntervals.some((range) => !isValidRange(range))) {
+
+      const completedIntervals = parsedIntervals.map((interval) => {
+        if (interval.length === 1) {
+          return [interval[0], interval[0]];
+        }
+        return interval;
+      });
+
+      if (completedIntervals.some((range) => !isValidRange(range))) {
         return [];
       }
-      return parsedIntervals;
+
+      return completedIntervals;
     } catch (error) {
       return [];
     }
