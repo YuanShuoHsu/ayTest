@@ -3,10 +3,24 @@ import PriceSettingMainCost from "./PriceSettingMainCost";
 
 import styles from "./index.module.scss";
 
-export default function PriceSettingMain() {
+interface PriceSettingMainProps {
+  firstAge: string;
+  secondAge: string;
+  onAgeSelectionChange: (newSelections: string[]) => void;
+}
+
+export default function PriceSettingMain({
+  firstAge,
+  secondAge,
+  onAgeSelectionChange,
+}: PriceSettingMainProps) {
   return (
     <div className={styles.priceSettingMain}>
-      <PriceSettingMainAgeRange />
+      <PriceSettingMainAgeRange
+        firstAge={firstAge}
+        secondAge={secondAge}
+        onAgeSelectionChange={onAgeSelectionChange}
+      />
       <PriceSettingMainCost />
     </div>
   );

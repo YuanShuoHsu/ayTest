@@ -17,22 +17,37 @@ export default function NumberRange() {
     setInputRange(validInput);
   };
 
-  const isValidRange = (range: number[]): boolean => {
+  const isValidRange = (range: string[]): boolean => {
     const [start, end] = range;
 
-    return 0 <= start && end <= 20 && start <= end;
+    return (
+      0 <= Number(start) && Number(end) <= 20 && Number(start) <= Number(end)
+    );
   };
 
-  const parseInput = (input: string): number[][] => {
-    try {
-      const parsedIntervals = JSON.parse(input) as number[][];
+  const completeIntervals = (intervals: string[][]): string[][] => {
+    return intervals.map((interval) => {
+      if (interval[0] === "") {
+        return [interval[1], interval[1]];
+      } else if (interval[1] === "") {
+        return [interval[0], interval[0]];
+      }
+      return interval;
+    });
+  };
 
-      const completedIntervals = parsedIntervals.map((interval) => {
+  const parseInput = (input: string): string[][] => {
+    try {
+      const parsedIntervals: number[][] = JSON.parse(input);
+
+      const stringIntervals: string[][] = parsedIntervals.map((interval) => {
         if (interval.length === 1) {
-          return [interval[0], interval[0]];
+          return [String(interval[0]), ""];
         }
-        return interval;
+        return interval.map((item) => String(item));
       });
+
+      const completedIntervals = completeIntervals(stringIntervals);
 
       if (completedIntervals.some((range) => !isValidRange(range))) {
         return [];

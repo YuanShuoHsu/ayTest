@@ -1,11 +1,31 @@
-import { useState } from "react";
 import styles from "./index.module.scss";
 
-export default function PriceSettingMainAge() {
+interface PriceSettingMainAgeProps {
+  firstAge: string;
+  secondAge: string;
+  onAgeSelectionChange: (newSelections: string[]) => void;
+}
+
+export default function PriceSettingMainAge({
+  firstAge,
+  secondAge,
+  onAgeSelectionChange,
+}: PriceSettingMainAgeProps) {
   const ageOptions = Array.from({ length: 21 }, (_, index) => index);
 
-  const [firstAge, setFirstAge] = useState<string>("");
-  const [secondAge, setSecondAge] = useState<string>("");
+  const handleFirstAgeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newFirstAge = event.target.value;
+    onAgeSelectionChange([newFirstAge, secondAge]);
+  };
+
+  const handleSecondAgeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newSecondAge = event.target.value;
+    onAgeSelectionChange([firstAge, newSecondAge]);
+  };
 
   return (
     <div className={styles.priceSettingMainAge}>
@@ -14,7 +34,7 @@ export default function PriceSettingMainAge() {
         <select
           className={styles.priceSettingMainAge__ageValue}
           value={firstAge}
-          onChange={(e) => setFirstAge(e.target.value)}
+          onChange={handleFirstAgeChange}
         >
           <option value="" disabled>
             請選擇年齡
@@ -24,7 +44,7 @@ export default function PriceSettingMainAge() {
               className={styles.priceSettingMainAge__ageOption}
               key={age}
               value={age}
-              disabled={secondAge !== "" && age >= Number(secondAge)}
+              disabled={secondAge !== "" && age > Number(secondAge)}
             >
               {age}
             </option>
@@ -34,7 +54,7 @@ export default function PriceSettingMainAge() {
         <select
           className={styles.priceSettingMainAge__ageValue}
           value={secondAge}
-          onChange={(e) => setSecondAge(e.target.value)}
+          onChange={handleSecondAgeChange}
         >
           <option value="" disabled>
             請選擇年齡
@@ -44,7 +64,7 @@ export default function PriceSettingMainAge() {
               className={styles.priceSettingMainAge__ageOption}
               key={age}
               value={age}
-              disabled={firstAge !== "" && age <= Number(firstAge)}
+              disabled={firstAge !== "" && age < Number(firstAge)}
             >
               {age}
             </option>

@@ -2,25 +2,26 @@ import { Fragment } from "react";
 import styles from "./index.module.scss";
 
 interface NumberRangeOverlapProps {
-  intervals: number[][];
+  intervals: string[][];
 }
 
 export default function NumberRangeOverlap({
   intervals,
 }: NumberRangeOverlapProps) {
-  const findMergeIntervals = (intervals: number[][]): number[][] => {
-    const sortedIntervals = [...intervals].sort((a, b) => a[0] - b[0]);
+  const findMergeIntervals = (intervals: string[][]): string[][] => {
+    const sortedIntervals = [...intervals].sort(
+      (a, b) => Number(a[0]) - Number(b[0])
+    );
 
-    const mergedIntervals = [sortedIntervals[0]];
+    const mergedIntervals: string[][] = [sortedIntervals[0]];
 
     for (let i = 1; i < intervals.length; i++) {
       const currentInterval = intervals[i];
       const lastMergedInterval = mergedIntervals[mergedIntervals.length - 1];
 
-      if (currentInterval[0] <= lastMergedInterval[1]) {
-        lastMergedInterval[1] = Math.max(
-          lastMergedInterval[1],
-          currentInterval[1]
+      if (Number(currentInterval[0]) <= Number(lastMergedInterval[1])) {
+        lastMergedInterval[1] = String(
+          Math.max(Number(lastMergedInterval[1]), Number(currentInterval[1]))
         );
       } else {
         mergedIntervals.push(currentInterval);
@@ -30,20 +31,22 @@ export default function NumberRangeOverlap({
     return mergedIntervals;
   };
 
-  const findOverlappingIntervals = (intervals: number[][]): number[][] => {
-    const sortedIntervals = [...intervals].sort((a, b) => a[0] - b[0]);
+  const findOverlappingIntervals = (intervals: string[][]): string[][] => {
+    const sortedIntervals = [...intervals].sort(
+      (a, b) => Number(a[0]) - Number(b[0])
+    );
 
-    const overlappingIntervals = [];
+    const overlappingIntervals: string[][] = [];
 
     let currentInterval = sortedIntervals[0];
 
     for (let i = 1; i < sortedIntervals.length; i++) {
       const interval = sortedIntervals[i];
 
-      if (interval[0] <= currentInterval[1]) {
+      if (Number(interval[0]) <= Number(currentInterval[1])) {
         overlappingIntervals.push([
           interval[0],
-          Math.min(currentInterval[1], interval[1]),
+          String(Math.min(Number(currentInterval[1]), Number(interval[1]))),
         ]);
       }
 
@@ -69,14 +72,12 @@ export default function NumberRangeOverlap({
     }
   }
 
-  console.log(overlappingIndices);
-
   return (
     <span className={styles.numberRangeOverlap}>
       {`[`}
       {mergedIntervals.map((interval, index) => (
         <Fragment key={index}>
-          {interval[0] === interval[1]
+          {Number(interval[0]) === Number(interval[1])
             ? `[${interval[0]}]`
             : `[${interval[0]}, ${interval[1]}]`}
           {index !== mergedIntervals.length - 1 && ", "}
