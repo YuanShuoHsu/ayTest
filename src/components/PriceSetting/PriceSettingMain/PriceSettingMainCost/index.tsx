@@ -1,24 +1,23 @@
-// import { useState } from "react";
+import { useState } from "react";
+
 import styles from "./index.module.scss";
 
+import {
+  thousandSeparator,
+  cleanInputValue,
+} from "./../../../../utils/numberFormatter";
+
 export default function PriceSettingMainCost() {
-  // const [inputNumber, setInputNumber] = useState<string>("-7855948.9527");
+  const [inputNumber, setInputNumber] = useState<string>("");
 
-  // function ThousandSeparator(number: string): string {
-  //   const parts = number.split(".");
-  //   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  //   return parts.join(".");
-  // }
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
 
-  // function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-  //   let inputValue = e.target.value;
-  //   inputValue = inputValue.replace(/[^\d.-]/g, "");
+    const cleanInputNumber = cleanInputValue(inputValue);
+    const formattedNumber = thousandSeparator(cleanInputNumber);
 
-    
-  //   setInputNumber(inputValue);
-  // }
-
-  // const formattedNumber: string = ThousandSeparator(inputNumber);
+    setInputNumber(formattedNumber);
+  };
 
   return (
     <div className={styles.priceSettingMainCost}>
@@ -34,12 +33,16 @@ export default function PriceSettingMainCost() {
           className={styles.priceSettingMainCost__costValue}
           type="text"
           id="costValue"
-          // value={inputNumber}
-          // onChange={handleInputChange}
+          value={inputNumber}
+          onChange={handleInputChange}
           placeholder="請輸入費用"
         />
       </div>
-      <p className={styles.priceSettingMainCost__errorMessage}>不可以為空白</p>
+      {!inputNumber && (
+        <p className={styles.priceSettingMainCost__errorMessage}>
+          不可以為空白
+        </p>
+      )}
       <p className={styles.priceSettingMainCost__additionalMessage}>
         輸入 0 表示免費
       </p>

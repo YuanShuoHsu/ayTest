@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 export default function NumberFormatter() {
   const [inputNumber, setInputNumber] = useState<string>("-7855948.9527");
 
-  const ThousandSeparator = (number: string): string => {
+  const thousandSeparator = (number: string): string => {
     const parts = number.split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
@@ -12,6 +12,7 @@ export default function NumberFormatter() {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = event.target.value;
+
     inputValue = inputValue.replace(/[^\d.-]/g, "");
 
     inputValue = inputValue.replace(/^\./g, "");
@@ -52,7 +53,7 @@ export default function NumberFormatter() {
     setInputNumber(inputValue);
   };
 
-  const formattedNumber: string = ThousandSeparator(inputNumber);
+  const formattedNumber: string = thousandSeparator(inputNumber);
 
   return (
     <div className={styles.numberFormatter}>

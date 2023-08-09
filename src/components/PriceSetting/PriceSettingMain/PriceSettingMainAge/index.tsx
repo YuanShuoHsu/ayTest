@@ -4,8 +4,8 @@ import styles from "./index.module.scss";
 export default function PriceSettingMainAge() {
   const ageOptions = Array.from({ length: 21 }, (_, index) => index);
 
-  const [firstAge, setFirstAge] = useState<number | string>("");
-  const [secondAge, setSecondAge] = useState<number | string>("");
+  const [firstAge, setFirstAge] = useState<string>("");
+  const [secondAge, setSecondAge] = useState<string>("");
 
   return (
     <div className={styles.priceSettingMainAge}>
