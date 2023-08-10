@@ -1,0 +1,10 @@
+@import "../../../styles/breakpoints.module.scss";
+
+.priceSettingMain {
+  display: flex;
+  gap: 10px;
+
+  @include respond-to(sm) {
+    flex-direction: column;
+  }
+}

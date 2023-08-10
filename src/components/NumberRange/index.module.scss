@@ -1,0 +1,55 @@
+.numberRange {
+  padding: 10px;
+  background-color: #ffffff;
+  border: 1px dashed #b6b6b6;
+
+  &__input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    &Label {
+      line-height: 30px;
+      cursor: pointer;
+    }
+
+    &Value {
+      padding: 0 5px;
+      min-width: 0;
+      height: 30px;
+      border: 1px solid #f4511e;
+      border-radius: 3px;
+      outline: none;
+      flex-grow: 1;
+      transition: 0.2s opacity;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &__output {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    &Label {
+      line-height: 30px;
+    }
+
+    &Value {
+      line-height: 30px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      &:hover {
+        overflow: auto hidden;
+        text-overflow: clip;
+        scroll-behavior: smooth;
+      }
+    }
+  }
+}
