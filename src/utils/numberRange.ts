@@ -1,3 +1,54 @@
+const findMissingIntervals = (intervals: string[][]): string[][] => {
+  const sortedIntervals = [...intervals].sort(
+    (a, b) => Number(a[0]) - Number(b[0])
+  );
+
+  const missingIntervals: string[][] = [];
+
+  let currentMax = -1;
+  const upperLimit = 20;
+
+  for (const [startStr, endStr] of sortedIntervals) {
+    const start = Number(startStr);
+    const end = Number(endStr);
+
+    if (start > currentMax + 1) {
+      missingIntervals.push([String(currentMax + 1), String(start - 1)]);
+    }
+
+    currentMax = Math.max(currentMax, end);
+  }
+
+  if (currentMax < upperLimit) {
+    missingIntervals.push([String(currentMax + 1), String(upperLimit)]);
+  }
+
+  return missingIntervals;
+};
+
+const findOverlappingIndices = (
+  mergedIntervals: string[][],
+  intervals: string[][]
+): number[] => {
+  const overlappingIndices = [];
+
+  for (const [mergedStart, mergedEnd] of mergedIntervals) {
+    for (let i = 0; i < intervals.length; i++) {
+      const [inputStart, inputEnd] = intervals[i];
+
+      if (
+        (mergedStart <= inputStart && mergedEnd >= inputStart) ||
+        (mergedStart <= inputEnd && mergedEnd >= inputEnd) ||
+        (mergedStart >= inputStart && mergedEnd <= inputEnd)
+      ) {
+        overlappingIndices.push(i);
+      }
+    }
+  }
+
+  return overlappingIndices;
+};
+
 const findMergeIntervals = (intervals: string[][]): string[][] => {
   if (intervals.length === 0) {
     return [];
@@ -6,15 +57,17 @@ const findMergeIntervals = (intervals: string[][]): string[][] => {
   const mergedIntervals: string[][] = [intervals[0]];
 
   for (let i = 1; i < intervals.length; i++) {
-    const currentInterval = intervals[i];
-    const lastMergedInterval = mergedIntervals[mergedIntervals.length - 1];
+    const [currentStart, currentEnd] = intervals[i];
+    const [lastMergedStart, lastMergedEnd] =
+      mergedIntervals[mergedIntervals.length - 1];
 
-    if (Number(currentInterval[0]) <= Number(lastMergedInterval[1])) {
-      lastMergedInterval[1] = String(
-        Math.max(Number(lastMergedInterval[1]), Number(currentInterval[1]))
-      );
+    if (Number(currentStart) <= Number(lastMergedEnd)) {
+      mergedIntervals[mergedIntervals.length - 1] = [
+        lastMergedStart,
+        String(Math.max(Number(lastMergedEnd), Number(currentEnd))),
+      ];
     } else {
-      mergedIntervals.push(currentInterval);
+      mergedIntervals.push(intervals[i]);
     }
   }
 
@@ -22,25 +75,29 @@ const findMergeIntervals = (intervals: string[][]): string[][] => {
 };
 
 const findOverlappingIntervals = (intervals: string[][]): string[][] => {
+  if (intervals.length <= 1) {
+    return [];
+  }
+
   const sortedIntervals = [...intervals].sort(
     (a, b) => Number(a[0]) - Number(b[0])
   );
 
   const overlappingIntervals: string[][] = [];
 
-  let currentInterval = sortedIntervals[0];
+  let currentEnd = sortedIntervals[0][1];
 
   for (let i = 1; i < sortedIntervals.length; i++) {
-    const interval = sortedIntervals[i];
+    const [start, end] = sortedIntervals[i];
 
-    if (Number(interval[0]) <= Number(currentInterval[1])) {
+    if (Number(start) <= Number(currentEnd)) {
       overlappingIntervals.push([
-        interval[0],
-        String(Math.min(Number(currentInterval[1]), Number(interval[1]))),
+        start,
+        String(Math.min(Number(currentEnd), Number(end))),
       ]);
     }
 
-    currentInterval = interval;
+    currentEnd = end;
   }
 
   return overlappingIntervals;
@@ -57,4 +114,10 @@ const completeIntervals = (intervals: string[][]): string[][] => {
   });
 };
 
-export { findMergeIntervals, findOverlappingIntervals, completeIntervals };
+export {
+  findMissingIntervals,
+  findOverlappingIndices,
+  findMergeIntervals,
+  findOverlappingIntervals,
+  completeIntervals,
+};

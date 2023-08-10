@@ -6,9 +6,11 @@ import PriceSettingDivider from "./PriceSettingDivider";
 import PriceSettingFooter from "./PriceSettingFooter";
 
 import {
-  // findMergeIntervals,
-  // findOverlappingIntervals,
-  // completeIntervals,
+  findMissingIntervals,
+  findOverlappingIndices,
+  findMergeIntervals,
+  findOverlappingIntervals,
+  completeIntervals,
 } from "../../utils/numberRange";
 
 import styles from "./index.module.scss";
@@ -27,8 +29,17 @@ export default function PriceSetting() {
     });
   };
 
-  // console.log( findOverlappingIntervals(completeIntervals(ageSelections)));
+  const completedIntervals = completeIntervals(ageSelections);
+  const overlappingIntervals = findOverlappingIntervals(completedIntervals);
+  const mergedIntervals = findMergeIntervals(overlappingIntervals);
+  const overlappingIndices = findOverlappingIndices(
+    mergedIntervals,
+    completedIntervals
+  );
 
+  const missingIntervals = findMissingIntervals(completedIntervals);
+
+  console.log(missingIntervals);
   const [sections, setSections] = useState<number[]>([0]);
 
   const handleHeaderRemoveClick = (sectionIndex: number) => {
@@ -57,11 +68,15 @@ export default function PriceSetting() {
             onAgeSelectionChange={(newSelections) =>
               handleAgeSelectionChange(sectionIndex, newSelections)
             }
+            hasOverlapping={overlappingIndices.includes(index)}
           />
           {index < sections.length - 1 && <PriceSettingDivider />}
         </Fragment>
       ))}
-      <PriceSettingFooter onAddClick={handleFooterAddClick} />
+      <PriceSettingFooter
+        onAddClick={handleFooterAddClick}
+        disabled={missingIntervals.length === 0}
+      />
     </div>
   );
 }
