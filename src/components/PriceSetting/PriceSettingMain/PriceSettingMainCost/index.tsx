@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import styles from "./index.module.scss";
 
 import {
@@ -7,16 +5,22 @@ import {
   cleanInputValue,
 } from "./../../../../utils/numberFormatter";
 
-export default function PriceSettingMainCost() {
-  const [inputNumber, setInputNumber] = useState<string>("");
+interface PriceSettingMainCostProps {
+  cost: string;
+  onCostInputChange: (newInputNumber: string) => void;
+}
 
+export default function PriceSettingMainCost({
+  cost,
+  onCostInputChange,
+}: PriceSettingMainCostProps) {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
 
     const cleanInputNumber = cleanInputValue(inputValue);
     const formattedNumber = thousandSeparator(cleanInputNumber);
 
-    setInputNumber(formattedNumber);
+    onCostInputChange(formattedNumber);
   };
 
   return (
@@ -33,12 +37,12 @@ export default function PriceSettingMainCost() {
           className={styles.priceSettingMainCost__costValue}
           type="text"
           id="costValue"
-          value={inputNumber}
+          value={cost}
           onChange={handleInputChange}
           placeholder="請輸入費用"
         />
       </div>
-      {!inputNumber && (
+      {!cost && (
         <p className={styles.priceSettingMainCost__errorMessage}>
           不可以為空白
         </p>

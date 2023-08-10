@@ -4,14 +4,14 @@ interface PriceSettingMainAgeProps {
   firstAge: string;
   secondAge: string;
   onAgeSelectionChange: (newSelections: string[]) => void;
-  hasOverlapping: boolean;
+  // hasOverlapping: boolean;
 }
 
 export default function PriceSettingMainAge({
   firstAge,
   secondAge,
   onAgeSelectionChange,
-  hasOverlapping,
+  // hasOverlapping,
 }: PriceSettingMainAgeProps) {
   const ageOptions = Array.from({ length: 21 }, (_, index) => index);
 
@@ -73,11 +73,14 @@ export default function PriceSettingMainAge({
           ))}
         </select>
       </div>
-      {hasOverlapping && (
+      {firstAge === "" && secondAge === "" && (
+        <p className={styles.priceSettingMainAge__errorMessage}>不可以為空白</p>
+      )}
+      {/* {hasOverlapping && (
         <p className={styles.priceSettingMainAge__errorMessage}>
           年齡區間不可重疊
         </p>
-      )}
+      )} */}
     </div>
   );
 }

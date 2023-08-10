@@ -5,19 +5,21 @@ import PriceSettingMain from "./PriceSettingMain";
 import PriceSettingDivider from "./PriceSettingDivider";
 import PriceSettingFooter from "./PriceSettingFooter";
 
-import {
-  findMissingIntervals,
-  findOverlappingIndices,
-  findMergeIntervals,
-  findOverlappingIntervals,
-  completeIntervals,
-} from "../../utils/numberRange";
+// import {
+//   // findMissingIntervals,
+//   findOverlappingIndices,
+//   findMergeIntervals,
+//   findOverlappingIntervals,
+//   completeIntervals,
+// } from "../../utils/numberRange";
 
 import styles from "./index.module.scss";
 
 export default function PriceSetting() {
-  const [ageSelections, setAgeSelections] = useState<string[][]>([]);
+  const [ageSelections, setAgeSelections] = useState<string[][]>([[]]);
+  const [costSelections, setCostSelections] = useState<string[]>([""]);
 
+  console.log(ageSelections, costSelections);
   const handleAgeSelectionChange = (
     sectionIndex: number,
     newSelections: string[]
@@ -29,38 +31,52 @@ export default function PriceSetting() {
     });
   };
 
-  const completedIntervals = completeIntervals(ageSelections);
-  const overlappingIntervals = findOverlappingIntervals(completedIntervals);
-  const mergedIntervals = findMergeIntervals(overlappingIntervals);
-  const overlappingIndices = findOverlappingIndices(
-    mergedIntervals,
-    completedIntervals
+  const handleCostInputChange = (
+    sectionIndex: number,
+    newInputNumber: string
+  ) => {
+    setCostSelections((prevCostSelections) => {
+      const newCostSelections = [...prevCostSelections];
+      newCostSelections[sectionIndex] = newInputNumber;
+      return newCostSelections;
+    });
+  };
+
+  const isAgeSelectionEmpty = ageSelections.some(
+    ([firstAge, secondAge]) => firstAge === "" && secondAge === ""
+  );
+  const isCostSelectionEmpty = costSelections.some(
+    (inputNumber) => inputNumber === ""
   );
 
-  const missingIntervals = findMissingIntervals(completedIntervals);
-
-  console.log(missingIntervals);
-  const [sections, setSections] = useState<number[]>([0]);
-
   const handleHeaderRemoveClick = (sectionIndex: number) => {
-    setSections((prevSections) =>
-      prevSections.filter((index) => index !== sectionIndex)
-    );
+    setAgeSelections((prevSelections) => {
+      return prevSelections.filter((_, index) => index !== sectionIndex);
+    });
+
+    setCostSelections((prevCostSelections) => {
+      return prevCostSelections.filter((_, index) => index !== sectionIndex);
+    });
   };
 
   const handleFooterAddClick = () => {
-    const maxIndex = Math.max(...sections);
-    setSections((prevSections) => [...prevSections, maxIndex + 1]);
+    setAgeSelections((prevSelections) => {
+      return [...prevSelections, []];
+    });
+
+    setCostSelections((prevCostSelections) => {
+      return [...prevCostSelections, ""];
+    });
   };
 
   return (
     <div className={styles.priceSetting}>
-      {sections.map((sectionIndex, index) => (
+      {ageSelections.map((selections, sectionIndex) => (
         <Fragment key={sectionIndex}>
           <PriceSettingHeader
-            index={index + 1}
+            index={sectionIndex + 1}
             sectionIndex={sectionIndex}
-            onRemoveClick={handleHeaderRemoveClick}
+            onRemoveClick={() => handleHeaderRemoveClick(sectionIndex)}
           />
           <PriceSettingMain
             firstAge={ageSelections[sectionIndex]?.[0] || ""}
@@ -68,14 +84,21 @@ export default function PriceSetting() {
             onAgeSelectionChange={(newSelections) =>
               handleAgeSelectionChange(sectionIndex, newSelections)
             }
-            hasOverlapping={overlappingIndices.includes(index)}
+            cost={costSelections[sectionIndex] || ""}
+            onCostInputChange={(newInputNumber) =>
+              handleCostInputChange(sectionIndex, newInputNumber)
+            }
+            // hasOverlapping={overlappingIndices.includes(sectionIndex)}
           />
-          {index < sections.length - 1 && <PriceSettingDivider />}
+          {sectionIndex < ageSelections.length - 1 && <PriceSettingDivider />}
         </Fragment>
       ))}
       <PriceSettingFooter
         onAddClick={handleFooterAddClick}
-        disabled={missingIntervals.length === 0}
+        disabled={
+          // missingIntervals.length === 0 ||
+          isAgeSelectionEmpty || isCostSelectionEmpty
+        }
       />
     </div>
   );
