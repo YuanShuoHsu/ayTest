@@ -9,7 +9,7 @@ interface PriceSettingMainProps {
   onAgeSelectionChange: (newSelections: string[]) => void;
   cost: string;
   onCostInputChange: (newInputNumber: string) => void;
-  // hasOverlapping: boolean;
+  hasOverlapping: boolean;
 }
 
 export default function PriceSettingMain({
@@ -18,7 +18,8 @@ export default function PriceSettingMain({
   onAgeSelectionChange,
   cost,
   onCostInputChange,
-}: // hasOverlapping,
+  hasOverlapping,
+}: 
 PriceSettingMainProps) {
   return (
     <div className={styles.priceSettingMain}>
@@ -26,7 +27,7 @@ PriceSettingMainProps) {
         firstAge={firstAge}
         secondAge={secondAge}
         onAgeSelectionChange={onAgeSelectionChange}
-        // hasOverlapping={hasOverlapping}
+        hasOverlapping={hasOverlapping}
       />
       <PriceSettingMainCost cost={cost} onCostInputChange={onCostInputChange} />
     </div>
