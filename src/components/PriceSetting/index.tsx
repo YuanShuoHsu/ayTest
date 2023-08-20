@@ -74,7 +74,7 @@ export default function PriceSetting() {
 
   return (
     <div className={styles.priceSetting}>
-      {ageSelections.map((selections, sectionIndex) => (
+      {ageSelections.map((_, sectionIndex) => (
         <Fragment key={sectionIndex}>
           <PriceSettingHeader
             index={sectionIndex + 1}
