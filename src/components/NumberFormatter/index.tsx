@@ -22,14 +22,12 @@ export default function NumberFormatter() {
       .replace(/\./g, "")
       .replace("$#$", ".");
 
-    if (inputValue.indexOf("-") > 0) {
-      inputValue = inputValue.replace("-", "");
-    } else if (inputValue.indexOf("-") === 0) {
-      inputValue = "-" + inputValue.replace(/-/g, "");
+    if (inputValue.startsWith("-")) {
+      inputValue = "-" + inputValue.slice(1).replace(/-/g, "");
     }
 
     if (inputValue.startsWith("-") && inputValue.charAt(1) === ".") {
-      inputValue = "-" + inputValue.slice(1).replace(".", "");
+      inputValue = "-" + inputValue.slice(1).replace(/./g, "");
     }
 
     if (inputValue.startsWith("0") && !inputValue.startsWith("0.")) {
