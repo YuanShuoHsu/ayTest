@@ -7,13 +7,6 @@ export default function NumberFormatter() {
   const thousandSeparator = (number: string): string => {
     const parts = number.split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    // `/`：正則表達式的起始和結束符號。
-    // `\B`：匹配一個非單字邊界，確保匹配不是單字的開始或結束。
-    // `(?=(\d{3})+(?!\d))`：這是一個正向先行斷言，它匹配在當前位置後面的內容，但不消耗任何字符。具體來說：
-    // `(?=\d{3})`：匹配三個數字（\d 表示數字字符）。
-    // `+`：表示前面的 \d{3} 可以重複一次或多次，以匹配更多的三位數字。
-    // `(?!\d)`：負向後行斷言，確保匹配後面沒有數字。
-    // `/g`：全局修飾符，使正則表達式在整個字串中尋找所有匹配。
     return parts.join(".");
   };
 
