@@ -16,6 +16,9 @@ import {
 import styles from "./index.module.scss";
 
 export default function PriceSetting() {
+  const [sections, setSections] = useState<{ id: number }[]>([
+    { id: Date.now() },
+  ]);
   const [ageSelections, setAgeSelections] = useState<string[][]>([[]]);
   const [costInputs, setCostInputs] = useState<string[]>([""]);
 
@@ -47,6 +50,10 @@ export default function PriceSetting() {
   const isCostInputEmpty = costInputs.some((inputNumber) => inputNumber === "");
 
   const handleHeaderRemoveClick = (sectionIndex: number) => {
+    setSections((prevSections) =>
+      prevSections.filter((_, index) => index !== sectionIndex)
+    );
+
     setAgeSelections((prevSelections) => {
       return prevSelections.filter((_, index) => index !== sectionIndex);
     });
@@ -57,8 +64,8 @@ export default function PriceSetting() {
   };
 
   const handleFooterAddClick = () => {
+    setSections((prevSections) => [...prevSections, { id: Date.now() }]);
     setAgeSelections((prevSelections) => [...prevSelections, []]);
-
     setCostInputs((prevCostInputs) => [...prevCostInputs, ""]);
   };
 
@@ -74,8 +81,8 @@ export default function PriceSetting() {
 
   return (
     <div className={styles.priceSetting}>
-      {ageSelections.map((_, sectionIndex) => (
-        <Fragment key={sectionIndex}>
+      {sections.map((section, sectionIndex) => (
+        <Fragment key={section.id}>
           <PriceSettingHeader
             index={sectionIndex + 1}
             sectionIndex={sectionIndex}
@@ -100,7 +107,8 @@ export default function PriceSetting() {
         onAddClick={handleFooterAddClick}
         disabled={
           missingIntervals.length === 0 ||
-          isAgeSelectionEmpty || isCostInputEmpty
+          isAgeSelectionEmpty ||
+          isCostInputEmpty
         }
       />
     </div>
