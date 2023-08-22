@@ -14,8 +14,10 @@ const cleanInputValue = (inputValue: string): string => {
     .replace(/\./g, "")
     .replace("$#$", ".");
 
-  if (inputValue.startsWith("-")) {
-    inputValue = "-" + inputValue.slice(1).replace(/-/g, "");
+  if (inputValue.indexOf("-") > 0) {
+    inputValue = inputValue.replace(/-/g, "");
+  } else if (inputValue.indexOf("-") === 0) {
+    inputValue = "-" + inputValue.replace(/-/g, "");
   }
 
   if (inputValue.startsWith("-") && inputValue.charAt(1) === ".") {
