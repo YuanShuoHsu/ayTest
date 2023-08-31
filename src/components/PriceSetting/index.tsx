@@ -85,7 +85,6 @@ export default function PriceSetting() {
         <Fragment key={section.id}>
           <PriceSettingHeader
             index={sectionIndex + 1}
-            sectionIndex={sectionIndex}
             onRemoveClick={() => handleHeaderRemoveClick(sectionIndex)}
           />
           <PriceSettingMain

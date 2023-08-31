@@ -2,17 +2,15 @@ import styles from "./index.module.scss";
 
 interface PriceSettingHeaderProps {
   index: number;
-  sectionIndex: number;
-  onRemoveClick: (index: number) => void;
+  onRemoveClick: () => void;
 }
 
 export default function PriceSettingHeader({
   index,
-  sectionIndex,
   onRemoveClick,
 }: PriceSettingHeaderProps) {
   const handleRemoveClick = () => {
-    onRemoveClick(sectionIndex);
+    onRemoveClick();
   };
 
   return (
