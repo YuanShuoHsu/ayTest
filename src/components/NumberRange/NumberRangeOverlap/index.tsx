@@ -43,8 +43,7 @@ export default function NumberRangeOverlap({
     );
 
     const overlappingIntervals: string[][] = [];
-
-    let currentEnd = sortedIntervals[0][1];
+    let currentEnd = Number(sortedIntervals[0][1]);
 
     for (let i = 1; i < sortedIntervals.length; i++) {
       const [start, end] = sortedIntervals[i];
@@ -55,8 +54,7 @@ export default function NumberRangeOverlap({
           String(Math.min(Number(currentEnd), Number(end))),
         ]);
       }
-
-      currentEnd = end;
+      currentEnd = Number(end);
     }
 
     return overlappingIntervals;
